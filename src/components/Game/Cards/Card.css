@@ -1,0 +1,10 @@
+.gamefield__card{
+  width: 28%;
+  max-width: 90px;
+  height: 90px;
+  color: gray;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}

@@ -1,9 +1,11 @@
 import React from 'react';
 
+import './NavigationItem.css';
+
 const navigationItem = props => {
-  const navigationItemStyle = ['navigationItem'];
+  const navigationItemStyle = ['navigation__navigationItem'];
   if (props.active) {
-    navigationItemStyle.push('active');
+    navigationItemStyle.push('navigation__navigationItem--active');
   }
   
   return (

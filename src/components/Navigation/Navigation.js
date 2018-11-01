@@ -6,7 +6,7 @@ const navigation = props => {
   const navigationItems = props.navigation.map((item,i) => (
     <NavigationItem key={i}>{item}</NavigationItem>
   ));
-  return navigationItems
+  return <div style={{'height': '100px'}}>{navigationItems}</div>
 };
 
 export default navigation;

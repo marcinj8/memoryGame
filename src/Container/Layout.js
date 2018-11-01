@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Navigation from '../components/Navigation/Navigation';
+import GameEngine from './GameEngine';
 
 class Layout extends Component {
   state ={
@@ -11,7 +12,7 @@ class Layout extends Component {
     return (
       <div className='mainContainer'>
         <Navigation navigation={this.state.navigation} />
-        <div>Game</div>
+        <GameEngine />
         <div>Footer</div>
       </div>
     );

@@ -1,0 +1,7 @@
+.navigation__navigationItem {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  color: orangered;
+}
