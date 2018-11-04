@@ -12,10 +12,16 @@ class GameEngine extends Component {
     gameCardsOrder: [],
     guessed: [],
     choosed: [],
+    initialShow: true,
+    score: null
   };
 
   componentWillMount() {
     this.setCardsHandler();
+    setTimeout(() => this.setState({
+      initialShow: false
+    }), 1500)
+
   }
 
   setCardsHandler = () => {
@@ -39,25 +45,25 @@ class GameEngine extends Component {
     }, 1000);
   }
 
-  compare = () => {
-    if (this.state.choosed[0].color === this.state.choosed[1].color) {
+  compare = (choosedCards) => {
+    if (choosedCards[0].color === choosedCards[1].color) {
       const updateGuessed = [...this.state.guessed];
-      updateGuessed.push(...this.state.choosed)
+      updateGuessed.push(...choosedCards)
       this.setState({
-        choosed: [],
-        guessed: updateGuessed
+        guessed: updateGuessed,
+        choosed: []
       });
     } else {
-      this.setCardsHandler({
+      setTimeout(() => this.setState({
         choosed: [],
-      })
+      }), 500)
     }
   }
 
   onClickHandler = (color, no) => {
     this.counter()
     if (this.state.time === 0) {
-      // this.runTimmer();
+      this.runTimmer();
     }
 
     let choosedCards = [...this.state.choosed];
@@ -68,21 +74,29 @@ class GameEngine extends Component {
     this.setState({
       choosed: choosedCards
     });
-    console.log(this.state.choosed)
-
-    if (this.state.choosed.length === 2) {
-      this.compare();
+    if (choosedCards.length === 2) {
+      this.compare(choosedCards);
     }
   }
 
   render() {
-    console.log(this.state.guessed, this.state.choosed)
+
+    if(this.state.guessed.length === 18) {
+      const score = {clicks: this.state.counter, time: this.state.time}
+      this.setState({
+        score: score
+      })
+    }
+
     return (
       <div>
         <span>Moves: {this.state.counter}  </span>
-        <span>Time: {this.state.time} s</span>
+        <span>Time: {this.state.time} {this.state.time < 2 ? 'second' : 'seconds'}</span>
         <GameField
+          initialShow={this.state.initialShow}
           clicked={this.onClickHandler}
+          choosed={this.state.choosed}
+          guessed={this.state.guessed}
           colors={this.state.gameCardsOrder} />
       </div>
     );
