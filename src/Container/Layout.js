@@ -6,7 +6,7 @@ import GameEngine from './GameEngine';
 class Layout extends Component {
   state ={
     navigation: ['new game', 'ranking'],
-    ranking: false
+    ranking: false,
   };
   render() {
     return (

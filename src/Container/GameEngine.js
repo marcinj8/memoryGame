@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import GameField from '../components/Game/GameField/GameField';
+import Modal from '../UI/Modal/Modal';
+import GameSummary from '../components/GameSummary/GameSummary';
 
 const COLORS = ['red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered', 'red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered'];
 
@@ -20,8 +22,13 @@ class GameEngine extends Component {
     this.setCardsHandler();
     setTimeout(() => this.setState({
       initialShow: false
-    }), 1500)
+    }), 1500);
+  }
 
+  componentWillUpdate() {
+    if (this.state.guessed.length === 18 && this.state.score === null) {
+      this.endOfGame();
+    }
   }
 
   setCardsHandler = () => {
@@ -33,13 +40,37 @@ class GameEngine extends Component {
     });
   }
 
+  endOfGame = () => {
+    const score = { clicks: this.state.counter, time: this.state.time };
+    this.setState({
+      score: score
+    });
+  }
+
+  newGame = () => {
+    this.setState({
+      counter: 0,
+      time: 0,
+      name: '',
+      gameCardsOrder: [],
+      guessed: [],
+      choosed: [],
+      initialShow: true,
+      score: null
+    })
+    this.setCardsHandler();
+    setTimeout(() => this.setState({
+      initialShow: false
+    }), 1500);
+  }
+
   counter = () => {
     this.setState({
       counter: this.state.counter + 1
     });
   }
 
-  runTimmer = () => {
+  timmer = () => {
     setInterval(() => {
       this.setState({ time: this.state.time + 1 });
     }, 1000);
@@ -48,22 +79,23 @@ class GameEngine extends Component {
   compare = (choosedCards) => {
     if (choosedCards[0].color === choosedCards[1].color) {
       const updateGuessed = [...this.state.guessed];
-      updateGuessed.push(...choosedCards)
+      updateGuessed.push(...choosedCards);
       this.setState({
         guessed: updateGuessed,
         choosed: []
       });
+
     } else {
       setTimeout(() => this.setState({
         choosed: [],
-      }), 500)
+      }), 500);
     }
   }
 
   onClickHandler = (color, no) => {
-    this.counter()
+    this.counter();
     if (this.state.time === 0) {
-      this.runTimmer();
+      this.timmer();
     }
 
     let choosedCards = [...this.state.choosed];
@@ -81,12 +113,6 @@ class GameEngine extends Component {
 
   render() {
 
-    if(this.state.guessed.length === 18) {
-      const score = {clicks: this.state.counter, time: this.state.time}
-      this.setState({
-        score: score
-      })
-    }
 
     return (
       <div>
@@ -98,6 +124,15 @@ class GameEngine extends Component {
           choosed={this.state.choosed}
           guessed={this.state.guessed}
           colors={this.state.gameCardsOrder} />
+        {!!this.state.score
+          ? <Modal>
+            <GameSummary
+              clicks={this.state.score.clicks}
+              time={this.state.score.time}
+              clicked={this.newGame} />
+          </Modal>
+          : null
+        }
       </div>
     );
   }
