@@ -17,16 +17,13 @@ class GameEngine extends Component {
     initialShow: true,
     score: null
   };
-
+  startTimmer = ''; 
   componentWillMount() {
     this.setCardsHandler();
-    setTimeout(() => this.setState({
-      initialShow: false
-    }), 1500);
   }
 
   componentWillUpdate() {
-    if (this.state.guessed.length === 18 && this.state.score === null) {
+    if (this.state.guessed.length === 2 && this.state.score === null) {
       this.endOfGame();
     }
   }
@@ -38,10 +35,17 @@ class GameEngine extends Component {
     this.setState({
       gameCardsOrder: cards
     });
+    setInterval(this.initialShowCards, 1200);
+  }
+
+  initialShowCards = () => {this.setState({
+      initialShow: false
+    })
   }
 
   endOfGame = () => {
     const score = { clicks: this.state.counter, time: this.state.time };
+    clearInterval(this.startTimmer)
     this.setState({
       score: score
     });
@@ -57,11 +61,8 @@ class GameEngine extends Component {
       choosed: [],
       initialShow: true,
       score: null
-    })
+    });
     this.setCardsHandler();
-    setTimeout(() => this.setState({
-      initialShow: false
-    }), 1500);
   }
 
   counter = () => {
@@ -71,9 +72,7 @@ class GameEngine extends Component {
   }
 
   timmer = () => {
-    setInterval(() => {
       this.setState({ time: this.state.time + 1 });
-    }, 1000);
   }
 
   compare = (choosedCards) => {
@@ -95,7 +94,7 @@ class GameEngine extends Component {
   onClickHandler = (color, no) => {
     this.counter();
     if (this.state.time === 0) {
-      this.timmer();
+      this.startTimmer = setInterval(this.timmer, 1000);
     }
 
     let choosedCards = [...this.state.choosed];
