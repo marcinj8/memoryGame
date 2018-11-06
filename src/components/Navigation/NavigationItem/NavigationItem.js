@@ -9,7 +9,9 @@ const navigationItem = props => {
   }
   
   return (
-    <span className={navigationItemStyle.join(' ')}>
+    <span 
+      onClick={props.clicked}
+      className={navigationItemStyle.join(' ')}>
       {props.children}
     </span>
   );

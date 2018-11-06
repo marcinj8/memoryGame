@@ -17,13 +17,18 @@ class GameEngine extends Component {
     initialShow: true,
     score: null
   };
+
   startTimmer = ''; 
   componentWillMount() {
     this.setCardsHandler();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.startTimmer);
+  }
+
   componentWillUpdate() {
-    if (this.state.guessed.length === 2 && this.state.score === null) {
+    if (this.state.guessed.length === 4 && this.state.score === null) {
       this.endOfGame();
     }
   }
@@ -35,7 +40,7 @@ class GameEngine extends Component {
     this.setState({
       gameCardsOrder: cards
     });
-    setInterval(this.initialShowCards, 1200);
+    setInterval(this.initialShowCards, 1500);
   }
 
   initialShowCards = () => {this.setState({
