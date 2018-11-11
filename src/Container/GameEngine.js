@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import GameField from '../components/Game/GameField/GameField';
 import Modal from '../UI/Modal/Modal';
 import GameSummary from '../components/GameSummary/GameSummary';
+import StartGameForm from '../UI/StartGameFrom/StartGameForm';
 
 const COLORS = ['red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered', 'red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered'];
 
@@ -11,26 +13,22 @@ class GameEngine extends Component {
     counter: 0,
     time: 0,
     name: '',
+    points: 0,
     gameCardsOrder: [],
     guessed: [],
     choosed: [],
+    showStartModal: false,
     initialShow: true,
     score: null
   };
 
-  startTimmer = ''; 
+  startTimmer = '';
   componentWillMount() {
-    this.setCardsHandler();
+    this.setNewGame();
   }
 
   componentWillUnmount() {
     clearInterval(this.startTimmer);
-  }
-
-  componentWillUpdate() {
-    if (this.state.guessed.length === 4 && this.state.score === null) {
-      this.endOfGame();
-    }
   }
 
   setCardsHandler = () => {
@@ -38,19 +36,32 @@ class GameEngine extends Component {
       return .5 - Math.random();
     });
     this.setState({
-      gameCardsOrder: cards
+      gameCardsOrder: cards,
+      showStartModal: false,
     });
     setInterval(this.initialShowCards, 1500);
   }
 
-  initialShowCards = () => {this.setState({
+  initialShowCards = () => {
+    this.setState({
       initialShow: false
-    })
+    });
+  }
+
+  setNewGame = () => {
+    this.setState({
+      showStartModal: true
+    });
+  }
+
+  saveScore = (score) => {
+    axios.post('https://memory-game-c413d.firebaseio.com/scores.json', score);
   }
 
   endOfGame = () => {
-    const score = { clicks: this.state.counter, time: this.state.time };
-    clearInterval(this.startTimmer)
+    const score = { clicks: this.state.counter, time: this.state.time, points: Math.round(1000 - this.state.time * 5 - this.state.counter * 3) };
+    clearInterval(this.startTimmer);
+    this.saveScore(score);
     this.setState({
       score: score
     });
@@ -77,7 +88,7 @@ class GameEngine extends Component {
   }
 
   timmer = () => {
-      this.setState({ time: this.state.time + 1 });
+    this.setState({ time: this.state.time + 1 });
   }
 
   compare = (choosedCards) => {
@@ -88,7 +99,9 @@ class GameEngine extends Component {
         guessed: updateGuessed,
         choosed: []
       });
-
+      if (updateGuessed.length === 4 && this.state.score === null) {
+        this.endOfGame();
+      }
     } else {
       setTimeout(() => this.setState({
         choosed: [],
@@ -113,6 +126,7 @@ class GameEngine extends Component {
     if (choosedCards.length === 2) {
       this.compare(choosedCards);
     }
+
   }
 
   render() {
@@ -129,14 +143,19 @@ class GameEngine extends Component {
           guessed={this.state.guessed}
           colors={this.state.gameCardsOrder} />
         {!!this.state.score
-          ? <Modal>
+          ? <Modal show>
             <GameSummary
               clicks={this.state.score.clicks}
               time={this.state.score.time}
+              points={this.state.score.points}
               clicked={this.newGame} />
           </Modal>
           : null
         }
+        <Modal show={this.state.showStartModal}>
+          <StartGameForm
+            clicked={this.setCardsHandler} />
+        </Modal>
       </div>
     );
   }

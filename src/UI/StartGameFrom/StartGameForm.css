@@ -1,0 +1,26 @@
+.startGameForm__container {
+  width:80%;
+  margin: 0 auto;
+  padding: 90px 0;
+  height: 60%;
+}
+
+.startGameForm__input{
+  box-sizing: border-box;
+  height: 30px;
+  width: 250px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.startGameForm__input:hover{
+  border: 1px solid orangered;
+}
+
+.startGameForm__button{
+  display: block;
+  margin: 20px auto;
+  width: 80px;
+}

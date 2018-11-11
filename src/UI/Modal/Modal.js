@@ -7,11 +7,13 @@ import './Modal.css';
 
 const modal = props => {
 
-  let modalStyle = ['modal'];
-
+  let modalStyle = ['modal__container'];
+  if (props.show) {
+    modalStyle.push('modal__container--active')
+  }
   return (
     <Aux>
-      <Backdrop />
+      <Backdrop show={props.show} />
       <div
         className={modalStyle.join(' ')}>
         {props.children}

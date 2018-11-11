@@ -1,9 +1,17 @@
-.modal {
+.modal__container {
   position: fixed;
+  display: none;
   background: gray;
-  width:10%;
-  height: 450px;
+  width: 80%;
+  height: 400px;
   top: 10%;
   left: 10%;
   text-align: center;
+  border-radius: 6px;
+  box-shadow: 8px 10px 10px rgba(0, 0, 0, 0.75);
+}
+
+.modal__container--active {
+  display: block;
+
 }

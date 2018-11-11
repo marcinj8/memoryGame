@@ -4,7 +4,10 @@ import './Backdrop.css';
 
 const backdrop = props => {
 
-  let backdropSytle = ['backdrop'];
+  let backdropSytle = ['backdrop__container'];
+  if(props.show) {
+    backdropSytle.push('backdrop__container--active')
+  }
   
   return (
     <div 
