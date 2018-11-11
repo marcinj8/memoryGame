@@ -20,7 +20,54 @@
 }
 
 .startGameForm__button{
+  box-sizing: border-box;
   display: block;
   margin: 20px auto;
-  width: 80px;
+  padding: 5px;
+  
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+}
+
+.startGameForm__button:enabled{
+  animation: activeButtonAnimation .3s  ease-in-out forwards;
+}
+
+.startGameForm__button:disabled{
+  animation: disableButtonAnimation .3s  ease-in-out forwards;
+}
+
+@keyframes activeButtonAnimation {
+  0%{
+    width: 80px;
+    background: transparent;
+    color: rgb(202, 202, 202);
+    border: 1px solid rgb(201, 201, 201);
+    cursor: default;
+  }
+  100%{
+    width: 120px;
+    background: rgb(165, 255, 165);
+    color: rgb(8, 107, 41);
+    border: 1px solid rgb(8, 107, 41);
+    cursor: pointer
+  }
+}
+
+@keyframes disableButtonAnimation {
+  0%{
+    width: 120px;
+    background: rgb(165, 255, 165);
+    color: rgb(8, 107, 41);
+    border: 1px solid rgb(8, 107, 41);
+    cursor: pointer
+  }
+
+  100%{
+    width: 80px;
+    background: transparent;
+    color: rgb(202, 202, 202);
+    border: 1px solid rgb(201, 201, 201);
+    cursor: default;
+  }
 }

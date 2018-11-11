@@ -6,7 +6,7 @@ import Modal from '../UI/Modal/Modal';
 import GameSummary from '../components/GameSummary/GameSummary';
 import StartGameForm from '../UI/StartGameFrom/StartGameForm';
 
-const COLORS = ['red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered', 'red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'orangered'];
+const COLORS = ['red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'silver', 'red', 'blue', 'yellow', 'green', 'purple', 'turquoise', 'pink', 'olive', 'silver'];
 
 class GameEngine extends Component {
   state = {
@@ -59,7 +59,7 @@ class GameEngine extends Component {
   }
 
   endOfGame = () => {
-    const score = { clicks: this.state.counter, time: this.state.time, points: Math.round(1000 - this.state.time * 5 - this.state.counter * 3) };
+    const score = { name: this.state.playerName, clicks: this.state.counter, time: this.state.time, points: Math.round(1000 - this.state.time * 5 - this.state.counter * 3) };
     clearInterval(this.startTimmer);
     this.saveScore(score);
     this.setState({
@@ -71,7 +71,7 @@ class GameEngine extends Component {
     this.setState({
       counter: 0,
       time: 0,
-      name: '',
+      playerName: '',
       gameCardsOrder: [],
       guessed: [],
       choosed: [],
@@ -126,14 +126,20 @@ class GameEngine extends Component {
     if (choosedCards.length === 2) {
       this.compare(choosedCards);
     }
+  }
 
+  setPlayerNameHandler = event => {
+    const playerName = event.target.value;
+    this.setState({
+      playerName: playerName
+    })
   }
 
   render() {
 
-
     return (
       <div>
+        <h3>Hello {this.state.playerName}</h3>
         <span>Moves: {this.state.counter}  </span>
         <span>Time: {this.state.time} {this.state.time < 2 ? 'second' : 'seconds'}</span>
         <GameField
@@ -144,16 +150,18 @@ class GameEngine extends Component {
           colors={this.state.gameCardsOrder} />
         {!!this.state.score
           ? <Modal show>
-            <GameSummary
-              clicks={this.state.score.clicks}
-              time={this.state.score.time}
-              points={this.state.score.points}
-              clicked={this.newGame} />
-          </Modal>
+              <GameSummary
+                clicks={this.state.score.clicks}
+                time={this.state.score.time}
+                points={this.state.score.points}
+                clicked={this.newGame} />
+            </Modal>
           : null
         }
         <Modal show={this.state.showStartModal}>
           <StartGameForm
+            activateButton={this.state.playerName !== undefined && this.state.playerName.length > 3 ? true : false}
+            changedInput={this.setPlayerNameHandler}
             clicked={this.setCardsHandler} />
         </Modal>
       </div>

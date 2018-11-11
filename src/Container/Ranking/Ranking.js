@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import './Ranking.css';
+
 class Ranking extends Component {
   state = {
     ranking: null
@@ -11,34 +13,54 @@ class Ranking extends Component {
       .then(res => this.setRanking(res.data));
   }
 
+  compare(a,b) {
+    if (a.score < b.score)
+      return -1;
+    if (a.score > b.score)
+      return 1;
+    return 0;
+  }
+
+  sortResults = data => {
+    const sortedResults = data.reverse(this.compare);
+    this.setState({
+      ranking: sortedResults
+    })
+  }
+
   setRanking = data => {
     let updateRanking = [];
     for (let key in data) {
-      if(updateRanking.length <= 20){
         updateRanking.push({
           key: key,
           score: data[key].points,
           clicks: data[key].clicks,
           time: data[key].time,
+          name: data[key].name
         });
-      };
-      this.setState({
-        ranking: updateRanking
-      })
+     this.sortResults(updateRanking)
     }
   }
 
   render() {
-    let ranking = 'loading...'
+    let ranking = 'loading...';
+
     if (this.state.ranking) {
       ranking = this.state.ranking.map((position, index) => (
-        <div key={position.key}>
-          <span>{index+1}</span>
-          <h4>{position.score}</h4>
+        <div className='ranking__position' key={position.key}>
+          <h3>{index+1}. {position.name}</h3>
+          <div>Points: {position.score}</div>
+          <div>Win after {position.clicks} clicks in {position.time} seconds.</div>
         </div>
-      ))
+      ));
     }
-    return ranking;
+
+    return (
+      <div>
+        <h2>TOP 20</h2>
+        {ranking}
+      </div>
+    )
   }
 }
 

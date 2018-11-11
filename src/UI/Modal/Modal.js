@@ -1,5 +1,4 @@
 import React from 'react';
-import Aux from 'react-aux';
 
 import Backdrop from '../Backdrop/Backdrop';
 
@@ -12,13 +11,13 @@ const modal = props => {
     modalStyle.push('modal__container--active')
   }
   return (
-    <Aux>
+    <div>
       <Backdrop show={props.show} />
       <div
         className={modalStyle.join(' ')}>
         {props.children}
       </div>
-    </Aux>
+    </div>
   );
 };
 
