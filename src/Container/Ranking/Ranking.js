@@ -22,7 +22,7 @@ class Ranking extends Component {
   }
 
   sortResults = data => {
-    const sortedResults = data.reverse(this.compare);
+    const sortedResults = data.sort(this.compare).reverse().slice(0,10);
     this.setState({
       ranking: sortedResults
     })
@@ -44,7 +44,6 @@ class Ranking extends Component {
 
   render() {
     let ranking = 'loading...';
-
     if (this.state.ranking) {
       ranking = this.state.ranking.map((position, index) => (
         <div className='ranking__position' key={position.key}>
@@ -57,7 +56,7 @@ class Ranking extends Component {
 
     return (
       <div>
-        <h2>TOP 20</h2>
+        <h2>TOP 10</h2>
         {ranking}
       </div>
     )

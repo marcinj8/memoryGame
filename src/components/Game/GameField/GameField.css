@@ -1,9 +1,15 @@
 .gameField {
   display: flex;
   flex-wrap: wrap;
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
   padding: 5px;
   border: 1px solid black;
   justify-content: center
+}
+
+@media(min-width:1250px){
+  .gameField {
+    width: 80%;
+  }
 }

@@ -1,17 +1,29 @@
 .ranking__position {
-    background: rgb(129, 129, 129);
+    background-image: url('../../Assets//bgsecond.png');
     width: 250px;
     height: 120px;
     margin: 10px auto;
     border: 1px solid black;
     border-radius: 3px;
     transition: all .2s ease;
-    box-shadow: 5px 5px 10px rgb(82, 82, 82);
+    box-shadow: 5px 5px 10px rgb(37, 37, 37);
+    animation: showBlock .2s ease
 }
 
-.ranking__position:hover{
+.ranking__position:hover {
     transform: scale(1.1);
-    box-shadow: 5px 5px 10px rgb(90, 90, 90);
+    box-shadow: 5px 5px 10px rgb(37, 37, 37);
     z-index: 20;
     background: rgb(170, 170, 170);
+}
+
+@keyframes showBlock {
+    0% {
+        transform: scale(0)
+    }
+
+    100% {
+        transform: scale(1)
+
+    }
 }

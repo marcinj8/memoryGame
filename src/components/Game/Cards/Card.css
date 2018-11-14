@@ -1,10 +1,22 @@
 .gamefield__card{
   width: 28%;
-  max-width: 90px;
-  height: 90px;
+  max-width: 15%;
+  height: 150px;
   color: gray;
+  background-image: url('../../../Assets/card.png');
   margin: 5px;
   border-radius: 5px;
   border: 1px solid black;
   cursor: pointer;
+  transition: all .1s linear;
+}
+
+.gamefield__card:hover{
+  transform: scale(1.05);
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.gamefield__card--guessed:hover {
+  border: 1px solid black;
+  transform: scale(1);
 }

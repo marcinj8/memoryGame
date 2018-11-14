@@ -50,6 +50,7 @@ class GameEngine extends Component {
 
   setNewGame = () => {
     this.setState({
+      playerName: '',
       showStartModal: true
     });
   }
@@ -71,7 +72,6 @@ class GameEngine extends Component {
     this.setState({
       counter: 0,
       time: 0,
-      playerName: '',
       gameCardsOrder: [],
       guessed: [],
       choosed: [],
@@ -99,7 +99,7 @@ class GameEngine extends Component {
         guessed: updateGuessed,
         choosed: []
       });
-      if (updateGuessed.length === 4 && this.state.score === null) {
+      if (updateGuessed.length === 18 && this.state.score === null) {
         this.endOfGame();
       }
     } else {

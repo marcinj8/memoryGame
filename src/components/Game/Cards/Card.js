@@ -4,7 +4,7 @@ import './Card.css';
 
 const card = props => {
   const cardStyle = ['gamefield__card'];
-  let background = { 'background': 'gray' };
+  let background = {};
 
   let clicked = () => false;
   if (props.guessed) {

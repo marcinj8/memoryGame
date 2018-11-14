@@ -12,7 +12,7 @@ const navigation = props => {
       }
       key={i}>{item}</NavigationItem>
   ));
-  return <div style={{ 'height': '100px' }}>{navigationItems}</div>
+  return <div style={{ 'height': '100px', 'paddingTop' : '20px'}}>{navigationItems}</div>
 };
 
 export default navigation;
