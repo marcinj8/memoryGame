@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Navigation from '../components/Navigation/Navigation';
 import GameEngine from './GameEngine';
 import Ranking from './Ranking/Ranking';
+import Footer from '../components/Footer/Footer';
 
 class Layout extends Component {
   state = {
@@ -50,7 +51,7 @@ class Layout extends Component {
           navigation={this.state.navigation} />
           {game}
           {ranking}
-        <div>Footer</div>
+        <Footer />
       </div>
     );
   }

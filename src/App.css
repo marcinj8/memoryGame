@@ -3,6 +3,7 @@
   background: #c76916;
   background-image: url('./Assets/ZenBG.png');
   min-height: 100vh;
+  margin: 0;
 }
 
 .App-logo {
