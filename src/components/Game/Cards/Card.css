@@ -1,7 +1,6 @@
-.gamefield__card{
-  width: 28%;
-  max-width: 15%;
-  height: 150px;
+.gamefield__card {
+  width: 30%;
+  height: 50px;
   color: gray;
   background-image: url('../../../Assets/card.png');
   margin: 5px;
@@ -11,7 +10,7 @@
   transition: all .1s linear;
 }
 
-.gamefield__card:hover{
+.gamefield__card:hover {
   transform: scale(1.05);
   border: 1px solid rgb(255, 255, 255);
 }
@@ -19,4 +18,11 @@
 .gamefield__card--guessed:hover {
   border: 1px solid black;
   transform: scale(1);
+}
+
+@media(min-width:900px) {
+  .gamefield__card {
+  width: 15%;
+  height: 150px;
+  }
 }

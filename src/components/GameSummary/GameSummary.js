@@ -1,18 +1,20 @@
 import React from 'react';
 
+import './GameSummary.css';
+
 const summary = props => (
-    <div>
+    <div className='gameSummary__block'>
         <h2>Your score:</h2>
-        <div>
+        <div className='gameSummary__element'>
             Clicks: {props.clicks}
         </div>
-        <div>
+        <div className='gameSummary__element'>
             Time: {props.time} seconds
       </div>
-        <div>
+        <div className='gameSummary__element'>
             Points: {Math.round(1000 - props.time * 5 - props.clicks * 3)}
         </div>
-        <button onClick={props.clicked}>New Game</button>
+        <button className='gameSummary__element' onClick={props.clicked}>New Game</button>
     </div>
 )
 

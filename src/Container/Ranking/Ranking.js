@@ -55,7 +55,7 @@ class Ranking extends Component {
     }
 
     return (
-      <div>
+      <div className='ranking__block'>
         <h2>TOP 10</h2>
         {ranking}
       </div>
