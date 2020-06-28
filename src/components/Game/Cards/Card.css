@@ -1,16 +1,16 @@
 .gamefield__card {
-  width: 30%;
+  width: 25%;
   height: 50px;
   color: gray;
   background-image: url('../../../Assets/card.png');
   margin: 5px;
   border-radius: 5px;
   border: 1px solid black;
-  cursor: pointer;
   transition: all .1s linear;
 }
 
-.gamefield__card:hover {
+.gamefield__card--hover:hover {
+  cursor: pointer;
   transform: scale(1.05);
   border: 1px solid rgb(255, 255, 255);
 }

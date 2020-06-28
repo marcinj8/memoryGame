@@ -3,20 +3,27 @@ import React from 'react';
 import './Card.css';
 
 const card = props => {
-  const cardStyle = ['gamefield__card'];
+  let cardStyle = ['gamefield__card', 'gamefield__card--hover'];
   let background = {};
 
-  let clicked = () => false;
+  let clicked = () => props.clicked(props.color);
+
+  if (props.show || props.choosed || props.guessed) {
+    background = { 'background': props.color };
+    cardStyle = ['gamefield__card'];
+    clicked = () => false;
+  }
+  if(props.initialShow || props.blockChoosing) {
+    clicked = () => false;
+    cardStyle = ['gamefield__card'];
+  }
   if (props.guessed) {
     cardStyle.push('gamefield__card--guessed');
   } else if (!props.guessed) {
     cardStyle.push('gamefield__card--guess');
-    clicked = () => props.clicked(props.color);
-  }
+  } 
 
-  if (props.show || props.choosed || props.guessed) {
-    background = { 'background': props.color }
-  }
+ 
 
   return (
     <div

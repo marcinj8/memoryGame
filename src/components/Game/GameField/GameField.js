@@ -14,6 +14,7 @@ const gameField = props => {
   )
   const gameField = props.colors.map((color, index) => (
     <Card
+      blockChoosing={props.blockChoosing}
       show={props.initialShow}
       clicked={() => props.clicked(color, index)}
       choosed={choosedCards.indexOf(index) > -1}

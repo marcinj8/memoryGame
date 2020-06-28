@@ -1,11 +1,11 @@
 .startGameForm__container {
-  width:80%;
+  width: 80%;
   margin: 0 auto;
   padding: 90px 0;
   height: 60%;
 }
 
-.startGameForm__input{
+.startGameForm__input {
   box-sizing: border-box;
   height: 30px;
   width: 80%;
@@ -15,11 +15,11 @@
   outline: none;
 }
 
-.startGameForm__input:hover{
+.startGameForm__input:hover {
   border: 1px solid orangered;
 }
 
-.startGameForm__button{
+.startGameForm__button {
   box-sizing: border-box;
   display: block;
   margin: 20px auto;
@@ -28,23 +28,24 @@
   transition: all .3s ease-in-out;
 }
 
-.startGameForm__button:enabled{
-  animation: activeButtonAnimation .3s  ease-in-out forwards;
+.startGameForm__button:enabled {
+  animation: activeButtonAnimation .3s ease-in-out forwards;
 }
 
-.startGameForm__button:disabled{
-  animation: disableButtonAnimation .3s  ease-in-out forwards;
+.startGameForm__button:disabled {
+  animation: disableButtonAnimation .3s ease-in-out forwards;
 }
 
 @keyframes activeButtonAnimation {
-  0%{
+  0% {
     width: 80px;
     background: transparent;
     color: rgb(202, 202, 202);
     border: 1px solid rgb(201, 201, 201);
     cursor: default;
   }
-  100%{
+
+  100% {
     width: 120px;
     background: rgb(165, 255, 165);
     color: rgb(8, 107, 41);
@@ -54,7 +55,7 @@
 }
 
 @keyframes disableButtonAnimation {
-  0%{
+  0% {
     width: 120px;
     background: rgb(165, 255, 165);
     color: rgb(8, 107, 41);
@@ -62,7 +63,7 @@
     cursor: pointer
   }
 
-  100%{
+  100% {
     width: 80px;
     background: transparent;
     color: rgb(202, 202, 202);
@@ -72,7 +73,7 @@
 }
 
 @media(min-width: 500px) {
-  .startGameForm__input{
+  .startGameForm__input {
     height: 30px;
     width: 250px;
     padding: 5px;

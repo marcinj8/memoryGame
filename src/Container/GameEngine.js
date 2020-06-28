@@ -12,6 +12,8 @@ class GameEngine extends Component {
   state = {
     counter: 0,
     time: 0,
+    startTime: 0,
+    currentTime: 0,
     name: '',
     points: 0,
     gameCardsOrder: [],
@@ -31,6 +33,12 @@ class GameEngine extends Component {
     clearInterval(this.startTimmer);
   }
 
+  initialShowCards = () => {
+    this.setState({
+      initialShow: false
+    });
+  }
+
   setCardsHandler = () => {
     const cards = COLORS.sort(function () {
       return .5 - Math.random();
@@ -40,12 +48,6 @@ class GameEngine extends Component {
       showStartModal: false,
     });
     setInterval(this.initialShowCards, 1500);
-  }
-
-  initialShowCards = () => {
-    this.setState({
-      initialShow: false
-    });
   }
 
   setNewGame = () => {
@@ -71,6 +73,8 @@ class GameEngine extends Component {
   newGame = () => {
     this.setState({
       counter: 0,
+      startTime: 0,
+      currentTime: 0,
       time: 0,
       gameCardsOrder: [],
       guessed: [],
@@ -78,6 +82,7 @@ class GameEngine extends Component {
       initialShow: true,
       score: null
     });
+    clearInterval(this.startTimmer);
     this.setCardsHandler();
   }
 
@@ -88,7 +93,9 @@ class GameEngine extends Component {
   }
 
   timmer = () => {
-    this.setState({ time: this.state.time + 1 });
+    const currentTime = new Date().getTime();
+    const gameDuration = Math.round((currentTime - this.state.startTime) / 1000);
+    this.setState({ time: gameDuration });
   }
 
   compare = (choosedCards) => {
@@ -109,10 +116,21 @@ class GameEngine extends Component {
     }
   }
 
+  setStartTime = () => {
+    const startTime = new Date().getTime();
+    this.setState({
+      startTime: startTime,
+      currentTime: startTime
+    })
+    this.startTimmer = setInterval(this.timmer, 1000);
+
+  }
+
   onClickHandler = (color, no) => {
     this.counter();
-    if (this.state.time === 0) {
-      this.startTimmer = setInterval(this.timmer, 1000);
+    if (this.state.time === 0 && this.state.startTime === 0) {
+      console.log('zero')
+      this.setStartTime();
     }
 
     let choosedCards = [...this.state.choosed];
@@ -123,6 +141,7 @@ class GameEngine extends Component {
     this.setState({
       choosed: choosedCards
     });
+
     if (choosedCards.length === 2) {
       this.compare(choosedCards);
     }
@@ -143,6 +162,7 @@ class GameEngine extends Component {
         <span>Moves: {this.state.counter}  </span>
         <span>Time: {this.state.time} {this.state.time < 2 ? 'second' : 'seconds'}</span>
         <GameField
+          blockChoosing={this.state.choosed.length === 2}
           initialShow={this.state.initialShow}
           clicked={this.onClickHandler}
           choosed={this.state.choosed}
@@ -150,17 +170,17 @@ class GameEngine extends Component {
           colors={this.state.gameCardsOrder} />
         {!!this.state.score
           ? <Modal show>
-              <GameSummary
-                clicks={this.state.score.clicks}
-                time={this.state.score.time}
-                points={this.state.score.points}
-                clicked={this.newGame} />
-            </Modal>
+            <GameSummary
+              clicks={this.state.score.clicks}
+              time={this.state.score.time}
+              points={this.state.score.points}
+              clicked={this.newGame} />
+          </Modal>
           : null
         }
         <Modal show={this.state.showStartModal}>
           <StartGameForm
-            activateButton={this.state.playerName !== undefined && this.state.playerName.length > 3 ? true : false}
+            activateButton={this.state.playerName !== undefined && this.state.playerName.length > 2 ? true : false}
             changedInput={this.setPlayerNameHandler}
             clicked={this.setCardsHandler} />
         </Modal>

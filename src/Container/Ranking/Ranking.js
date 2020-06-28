@@ -13,7 +13,7 @@ class Ranking extends Component {
       .then(res => this.setRanking(res.data));
   }
 
-  compare(a,b) {
+  compare(a, b) {
     if (a.score < b.score)
       return -1;
     if (a.score > b.score)
@@ -22,7 +22,7 @@ class Ranking extends Component {
   }
 
   sortResults = data => {
-    const sortedResults = data.sort(this.compare).reverse().slice(0,10);
+    const sortedResults = data.sort(this.compare).reverse().slice(0, 10);
     this.setState({
       ranking: sortedResults
     })
@@ -31,14 +31,14 @@ class Ranking extends Component {
   setRanking = data => {
     let updateRanking = [];
     for (let key in data) {
-        updateRanking.push({
-          key: key,
-          score: data[key].points,
-          clicks: data[key].clicks,
-          time: data[key].time,
-          name: data[key].name
-        });
-     this.sortResults(updateRanking)
+      updateRanking.push({
+        key: key,
+        score: data[key].points,
+        clicks: data[key].clicks,
+        time: data[key].time,
+        name: data[key].name
+      });
+      this.sortResults(updateRanking)
     }
   }
 
@@ -47,7 +47,7 @@ class Ranking extends Component {
     if (this.state.ranking) {
       ranking = this.state.ranking.map((position, index) => (
         <div className='ranking__position' key={position.key}>
-          <h3>{index+1}. {position.name}</h3>
+          <h3>{index + 1}. {position.name}</h3>
           <div>Points: {position.score}</div>
           <div>Win after {position.clicks} clicks in {position.time} seconds.</div>
         </div>

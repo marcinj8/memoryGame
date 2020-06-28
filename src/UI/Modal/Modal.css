@@ -2,6 +2,7 @@
   position: fixed;
   display: none;
   background-image: url('../../Assets/bgsecond.png');
+  background-size: cover;
   width: 80%;
   height: 400px;
   top: 10%;

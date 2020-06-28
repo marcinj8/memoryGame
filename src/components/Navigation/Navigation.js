@@ -2,6 +2,8 @@ import React from 'react';
 
 import NavigationItem from './NavigationItem/NavigationItem';
 
+import './Navigation.css';
+
 const navigation = props => {
   const navigationItems = props.navigation.map((item, i) => (
     <NavigationItem
@@ -12,7 +14,7 @@ const navigation = props => {
       }
       key={i}>{item}</NavigationItem>
   ));
-  return <div style={{ 'height': '100px', 'paddingTop' : '20px'}}>{navigationItems}</div>
+  return <div className='navigationContainer'>{navigationItems}</div>
 };
 
 export default navigation;
